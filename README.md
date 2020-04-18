@@ -24,11 +24,35 @@ This sprint challenge is divided up into three parts:  Hash tables coding, block
 
 Explain in detail the workings of a dynamic array:
 * What is the runtime complexity to access an array, add or remove from the front, and add or remove from the back?
+
+    >>> access : O(1) (constant time) because arrays can be quickly indexed
+
+    >>> add/remove : O(n) (linear time) because elements following added/removed element will have to be shifted, possibly all elements 
+
+    >>> add/remove from back : O(1)/O(n) because it's O(1) when adding/removing an element from the back if there is room in ther array.
+    >>>                      : it becomes O(n) when adding and there is no more room and the array must copy into a new one with 2*length
+
 * What is the worse case scenario if you try to extend the storage size of a dynamic array?
 
+    >>> Worst case would be if you extended the length of the newly sized array by only 1. If this were the case, every append to a full array would run in O(n)
+
 Explain how a blockchain is structured. What are the blocks, what is the chain? How is the data organized?
+
+    >>> blocks : are dictionaries that hold data such as an index, timestamp, and transaction information. It also has validation information like 
+    >>>          a proof and specific hash of the previous block in the chain.
+
+    >>> chain : a chain is the dynamic array that holds all the valid blocks in order.
+
+    >>> data organization : The chain creates an initial genesis block that following blocks will link from. In order for another block to be created or mined, the proof and hash of the
+    >>>                     previous block must pass validation. Once passed, the block is added to the chain and the process to mine another begins.
  
 Explain how proof of work functions. How does it operate. How does this protect the chain from attack. What kind of attack is possible?
+
+    >>> The the proof of work function looks to find a arbitrary number that when hashed with the hash of the previous block, it generates a hash that passes a specified condition.
+    >>> Since the blockchain opperates within a network, all participants are participating in mining new blocks. This guards against attack since the proccessing power of a network
+    >>> almost ensures a single person can't generate a modified block earlier in the chain and all it's following blocks before the network creates just one new block. A successful 
+    >>> attack would either an incredible/impossible amount of luck or a massive procssing power works to overtake the networks.
+
 
 ## Project Set Up
 
