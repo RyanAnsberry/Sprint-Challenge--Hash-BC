@@ -24,7 +24,15 @@ def proof_of_work(last_proof):
 
     print("Searching for next proof")
     proof = 0
-    #  TODO: Your code here
+    # seed int
+    random.seed(1)
+    proof = 0
+    # create last_hash varaiable from hash of last proof
+    last_hash = hashlib.sha256(str(last_proof).encode()).hexdigest()
+    while not valid_proof(last_hash, proof):
+        # assign a random number (float) to proof
+        proof = random.random()
+
 
     print("Proof found: " + str(proof) + " in " + str(timer() - start))
     return proof
@@ -38,9 +46,13 @@ def valid_proof(last_hash, proof):
 
     IE:  last_hash: ...AE912345, new hash 12345E88...
     """
-
-    # TODO: Your code here!
-    pass
+    # assign guess to encoded proof
+    guess = f"{proof}".encode()
+    # hash guess
+    new_hash = hashlib.sha256(guess).hexdigest()
+    # return if the first 5 elements of the new hash the last hash's concluding 5
+    # IE:  last_hash: ...AE912345, new hash 12345E88...
+    return last_hash[-5:] == new_hash[:5]
 
 
 if __name__ == '__main__':
@@ -78,3 +90,6 @@ if __name__ == '__main__':
             print("Total coins mined: " + str(coins_mined))
         else:
             print(data.get('message'))
+
+# CODE TO RUN
+# python miner.py https://lambda-coin-test-1.herokuapp.com/api
